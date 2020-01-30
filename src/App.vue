@@ -1,28 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <div class="navbar navbar-default topnav">
+      <div class="container">
+        <div class="navbar-header">
+          <router-link :to="'/ui'" class="navbar-brand">
+            Doctor
+          </router-link>
+        </div>
+      </div>
+    </div>
+
+    <div class="container content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App'
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+  @import "~bootstrap-sass/assets/stylesheets/_bootstrap";
+
+  body {
+    background: #eee;
+  }
+
+  .navbar {
+    background-color: #fff;
+    border: 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e6e6e6;
+    border-radius: 0;
+  }
+
+  .content {
+    padding-top: 20px;
+  }
+
+  .van-skeleton {
+    margin: 20px;
+  }
 </style>
