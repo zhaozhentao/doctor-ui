@@ -3,7 +3,7 @@
     <div class="navbar navbar-default topnav">
       <div class="container">
         <div class="navbar-header">
-          <router-link :to="'/ui'" class="navbar-brand">
+          <router-link :to="'/'" class="navbar-brand">
             Doctor
           </router-link>
         </div>
@@ -44,5 +44,9 @@
 
   .van-skeleton {
     margin: 20px;
+  }
+
+  a {
+    text-decoration: none !important;
   }
 </style>

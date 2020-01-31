@@ -14,7 +14,7 @@
               <div style="margin-top: 4px;">MainClass:</div>
             </td>
             <td>
-              <router-link :to="`/ui/jvm/${jvm.id}`">
+              <router-link :to="`/jvm/${jvm.id}/vm`">
                 <div>{{ jvm.id }}</div>
                 <div style="margin-top: 4px;">{{ jvm.mainClass }}</div>
               </router-link>
@@ -53,7 +53,7 @@
     }
   }
 </script>
-
+<!---->
 <style scoped>
   td {
     padding-top: 12px !important;
@@ -62,9 +62,5 @@
 
   td:first-child {
     width: 60px;
-  }
-
-  a {
-    text-decoration: none !important;
   }
 </style>
