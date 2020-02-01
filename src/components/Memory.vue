@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="gc_container">
+        <button class="btn btn-default" v-on:click="gc">GC</button>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-6" v-for="form in forms" :key="form">
         <ve-line :data="form" :colors="colors"></ve-line>
@@ -17,7 +23,6 @@
 
   export default {
     components: {VeLine},
-
     name: 'Memory',
     data() {
       let day = dayjs().subtract(1, 'minute')
@@ -66,6 +71,9 @@
           row[i.name] = i.used
           this.name2Form[i.name].rows.push(row)
         })
+      },
+      async gc() {
+        await axios.post(`/api/jvms/${this.id}/gc`)
       }
     },
     created() {
@@ -82,4 +90,9 @@
 </script>
 
 <style scoped>
+  .gc_container {
+    text-align: right;
+    padding-right: 20px;
+    margin-bottom: 10px;
+  }
 </style>
