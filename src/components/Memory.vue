@@ -25,18 +25,8 @@
     components: {VeLine},
     name: 'Memory',
     data() {
-      let day = dayjs().subtract(1, 'minute')
-      let rows = []
-
-      for (let i = 0; i < 30; i++) {
-        let addDay = day.add(1, 'second')
-        let time = addDay.format('mm:ss')
-        rows.push({time, 'EdenUsed': 0})
-        day = addDay
-      }
-
       return {
-        colors: ['#c23531'],
+        colors: ['#304ffe' ,'#b71c1c'],
         id: null,
         timer: null,
         name2Form: {},
@@ -57,18 +47,18 @@
             for (let idx = 0; idx < 30; idx++) {
               let addDay = day.add(1, 'second')
               let time = addDay.format('mm:ss')
-              let row = {time}
+              let row = {time, 'max': 0}
               row[i.name] = 0
               rows.push(row)
               day = addDay
             }
-            this.name2Form[i.name] = {columns: ['time', i.name], rows};
+            this.name2Form[i.name] = {columns: ['time', i.name, 'max'], rows};
             this.forms.push(this.name2Form[i.name])
           }
 
           this.name2Form[i.name].rows.shift()
-          let row = {time}
-          row[i.name] = i.used
+          let row = {time, 'max': i.max / 1000 / 1000}
+          row[i.name] = i.used / 1000 / 1000
           this.name2Form[i.name].rows.push(row)
         })
       },
