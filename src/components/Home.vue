@@ -8,15 +8,17 @@
         <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
         <table class="table table-hover" v-if="!loading">
           <tbody>
-          <tr v-for="jvm in jvms" :key="jvm.id">
-            <td>
+          <tr v-for="jvm in jvms" :key="jvm.vmid">
+            <td class="col-md-2">
               <div>PID:</div>
-              <div style="margin-top: 4px;">MainClass:</div>
+              <div style="margin-top: 4px;">Name:</div>
             </td>
-            <td>
-              <router-link :to="`/jvm/${jvm.id}/vm`">
-                <div>{{ jvm.id }}</div>
-                <div style="margin-top: 4px;">{{ jvm.mainClass }}</div>
+            <td class="col-md-10">
+              <router-link :to="`/jvm/${jvm.vmid}/vm`">
+                <div>{{ jvm.vmid }}</div>
+                <div style="margin-top: 4px; word-break: break-all;">
+                  {{ jvm.displayName }}
+                </div>
               </router-link>
             </td>
           </tr>
