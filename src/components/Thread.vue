@@ -5,9 +5,19 @@
       <ve-line :data="form" :colors="colors" v-if="!loading"/>
     </div>
 
-    <button class="btn btn-default" v-on:click="getThreads">
-      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>刷新
-    </button>
+    <div class="row" style="margin-bottom: 14px;">
+      <div class="col-md-6">
+        <button class="btn btn-default" v-on:click="getThreads">
+          <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>刷新
+        </button>
+      </div>
+
+      <div class="col-md-6">
+        <button class="btn btn-default" v-on:click="getDeadThreads">
+          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>检测死锁
+        </button>
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-md-6">
@@ -31,12 +41,26 @@
         <table class="table table-hover">
           <tbody>
           <tr>
-            <td><pre>{{ threadDetail }}</pre></td>
+            <td>
+              <pre>{{ threadDetail }}</pre>
+            </td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
+
+    <el-dialog title="死锁" :visible.sync="dialogShow" width="80%">
+      <div class="row">
+        <div class="col-md-2">
+          <el-tree :data="deadLocks" :props="defaultProps" @node-click="showDeadLock"></el-tree>
+        </div>
+
+        <div class="col-md-8">
+          <pre>{{ deadLockThreadDetail }}</pre>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -52,11 +76,18 @@
     components: {VeLine},
     data() {
       return {
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        },
+        deadLocks: null,
+        dialogShow: false,
         loading: true,
         id: null,
         timer: null,
         threads: [],
         threadDetail: null,
+        deadLockThreadDetail: null,
         colors: ['#304ffe', '#b71c1c'],
         form: {columns: ['time', '活动线程', '峰值线程'], rows: []}
       }
@@ -85,6 +116,41 @@
       async getThreadDetail(tid) {
         let result = await axios.get(`/api/jvms/${this.id}/threads/${tid}`)
         this.threadDetail = result.data
+      },
+      async getDeadThreads() {
+        this.deadLockThreadDetail = null
+
+        let result = await axios.get(`/api/jvms/${this.id}/deadlock`)
+
+        if (_.size(result.data) === 0) {
+          this.$message({message: '没有死锁线程', type: 'success'});
+          return
+        }
+
+        this.deadLocks = _.map(result.data, (value, index) => {
+          let children = _.map(value, item => {
+            return {
+              label: item.name,
+              threadId: item.threadId
+            }
+          })
+
+          return {
+            label: `死锁${index}`,
+            children
+          }
+        })
+
+        this.dialogShow = true
+      },
+      async showDeadLock(data) {
+        console.log(data.threadId)
+        if (!_.isNumber(data.threadId)) {
+          return
+        }
+
+        let result = await axios.get(`/api/jvms/${this.id}/threads/${data.threadId}`)
+        this.deadLockThreadDetail = result.data
       }
     },
     created() {
