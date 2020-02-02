@@ -1,7 +1,29 @@
 <template>
-  <div>
-    <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
-    <ve-line :data="form" :colors="colors" v-if="!loading"/>
+  <div class="container-fluid">
+    <div class="row">
+      <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
+      <ve-line :data="form" :colors="colors" v-if="!loading"/>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-hover table-bordered">
+          <tbody>
+          <tr>
+            <td>
+              divhaha
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              divhaha
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 

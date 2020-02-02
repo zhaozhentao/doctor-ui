@@ -24,7 +24,7 @@
       </table>
     </div>
 
-    <div class="col-md-8 main">
+    <div class="col-md-10">
       <div class="card">
         <router-view></router-view>
       </div>
@@ -54,10 +54,6 @@
     border-radius: 3px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, .04);
     padding: 15px 0;
-  }
-
-  .main {
-    margin-left: 20px;
   }
 
   tr:first-child {
