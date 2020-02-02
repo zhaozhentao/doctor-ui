@@ -49,4 +49,8 @@
   a {
     text-decoration: none !important;
   }
+
+  .head {
+    font-size: 20px;
+  }
 </style>

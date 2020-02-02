@@ -1,5 +1,7 @@
 <template>
   <div class="container-fluid">
+    <p class="head">线程</p>
+
     <div class="row">
       <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
       <ve-line :data="form" :colors="colors" v-if="!loading"/>

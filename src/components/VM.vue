@@ -238,10 +238,6 @@
     padding: 0 20px;
   }
 
-  .head {
-    font-size: 20px;
-  }
-
   .item-content {
     word-break: break-all;
   }

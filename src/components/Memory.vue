@@ -1,5 +1,7 @@
 <template>
   <div class="container-fluid">
+    <p class="head">内存</p>
+
     <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
 
     <div v-if="!loading">
