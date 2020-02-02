@@ -13,7 +13,7 @@
 
       <div class="row">
         <div class="col-md-6" v-for="form in forms" :key="form">
-          <ve-line :data="form" :colors="colors"></ve-line>
+          <ve-line :data="form" :colors="colors"/>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
     data() {
       return {
         loading: true,
-        colors: ['#304ffe' ,'#b71c1c'],
+        colors: ['#304ffe', '#b71c1c'],
         id: null,
         timer: null,
         name2Form: {},
