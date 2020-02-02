@@ -23,7 +23,7 @@
         </el-col>
         <el-col :span="20">
           <div class="grid-content bg-purple-light item-content">
-            {{ data.upTime }}
+            {{ (data.upTime / 1000).toFixed(2) }}秒
           </div>
         </el-col>
       </el-row>
@@ -240,5 +240,9 @@
 
   .item-content {
     word-break: break-all;
+  }
+
+  .el-divider--horizontal {
+    margin: 10px 0;
   }
 </style>
