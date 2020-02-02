@@ -12,8 +12,8 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6" v-for="form in forms" :key="form">
-          <ve-line :data="form" :colors="colors"/>
+        <div class="col-md-6" v-for="form in forms" :key="form.columns[1]">
+          <ve-line :data="form" :colors="colors" :series="form.series"/>
         </div>
       </div>
     </div>
@@ -51,24 +51,46 @@
         _.each(result.data, i => {
           if (_.isEmpty(this.name2Form[i.name])) {
             let day = dayjs().subtract(30, 'second')
-            let rows = []
+
+            this.name2Form[i.name] = {
+              columns: ['time', i.name, 'max'],
+              rows: [],
+              series: [{
+                symbol: "none",
+                type: "line",
+                smooth: false,
+                name: i.name,
+                data: []
+              }, {
+                symbol: "none",
+                type: "line",
+                smooth: false,
+                name: 'max',
+                data: []
+              }]
+            };
+            let form = this.name2Form[i.name]
 
             for (let idx = 0; idx < 30; idx++) {
               let addDay = day.add(1, 'second')
-              let time = addDay.format('mm:ss')
-              let row = {time, 'max': 0}
-              row[i.name] = 0
-              rows.push(row)
+
+              form.rows.push({time: addDay.format('mm:ss')})
+              form.series[0].data.push(0)
+              form.series[1].data.push(0)
+
               day = addDay
             }
-            this.name2Form[i.name] = {columns: ['time', i.name, 'max'], rows};
             this.forms.push(this.name2Form[i.name])
           }
 
-          this.name2Form[i.name].rows.shift()
-          let row = {time, 'max': i.max / 1000 / 1000}
-          row[i.name] = i.used / 1000 / 1000
-          this.name2Form[i.name].rows.push(row)
+          let form = this.name2Form[i.name]
+          form.rows.shift()
+          form.series[0].data.shift()
+          form.series[0].data.push(i.used / 1000 / 1000)
+          form.series[1].data.shift()
+          form.series[1].data.push(i.max / 1000 / 1000)
+          let row = {time}
+          form.rows.push(row)
         })
       },
       async gc() {

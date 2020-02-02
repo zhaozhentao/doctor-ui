@@ -4,7 +4,7 @@
 
     <div class="row">
       <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
-      <ve-line :data="form" :colors="colors" v-if="!loading"/>
+      <ve-line :data="form" :colors="colors" :series="series" v-if="!loading"/>
     </div>
 
     <div class="row" style="margin-bottom: 14px;">
@@ -55,7 +55,7 @@
     <el-dialog title="死锁" :visible.sync="dialogShow" width="80%">
       <div class="row">
         <div class="col-md-2">
-          <el-tree :data="deadLocks" :props="defaultProps" @node-click="showDeadLock"></el-tree>
+          <el-tree :data="deadLocks" :props="defaultProps" @node-click="showDeadLock"/>
         </div>
 
         <div class="col-md-8">
@@ -91,7 +91,20 @@
         threadDetail: null,
         deadLockThreadDetail: null,
         colors: ['#304ffe', '#b71c1c'],
-        form: {columns: ['time', '活动线程', '峰值线程'], rows: []}
+        form: {columns: ['time', '活动线程', '峰值线程'], rows: []},
+        series: [{
+          symbol: "none",
+          type: "line",
+          smooth: false,
+          name: '活动线程',
+          data: []
+        }, {
+          symbol: "none",
+          type: "line",
+          smooth: false,
+          name: '峰值线程',
+          data: []
+        }],
       }
     },
     methods: {
@@ -102,13 +115,13 @@
 
         if (_.size(this.form.rows) >= 30) {
           this.form.rows.shift()
+          this.series[0].data.shift()
+          this.series[1].data.shift()
         }
 
-        this.form.rows.push({
-          time: dayjs().format('mm:ss'),
-          '活动线程': result.data.activeThreadCount,
-          '峰值线程': result.data.peakThreadCount
-        })
+        this.form.rows.push({time: dayjs().format('mm:ss')})
+        this.series[0].data.push(result.data.activeThreadCount)
+        this.series[1].data.push(result.data.peakThreadCount)
       },
       async getThreads() {
         let result = await axios.get(`/api/jvms/${this.id}/threads`)
