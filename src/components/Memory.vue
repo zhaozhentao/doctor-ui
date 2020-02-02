@@ -1,14 +1,18 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="gc_container">
-        <button class="btn btn-default" v-on:click="gc">GC</button>
-      </div>
-    </div>
+    <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
 
-    <div class="row">
-      <div class="col-md-6" v-for="form in forms" :key="form">
-        <ve-line :data="form" :colors="colors"></ve-line>
+    <div v-if="!loading">
+      <div class="row">
+        <div class="gc_container">
+          <button class="btn btn-default" v-on:click="gc">GC</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6" v-for="form in forms" :key="form">
+          <ve-line :data="form" :colors="colors"></ve-line>
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +30,7 @@
     name: 'Memory',
     data() {
       return {
+        loading: true,
         colors: ['#304ffe' ,'#b71c1c'],
         id: null,
         timer: null,
@@ -36,6 +41,8 @@
     methods: {
       async getMemory() {
         let result = await axios.get(`/api/jvms/${this.id}/memory`)
+
+        this.loading = false
 
         let time = dayjs().format('mm:ss')
 
