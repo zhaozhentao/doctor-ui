@@ -1,5 +1,5 @@
 <template>
-  <el-row class="main">
+  <el-row>
     <p class="head">堆对象统计</p>
 
     <el-row type="flex" align="middle">

@@ -1,5 +1,5 @@
 <template>
-  <el-row class="main">
+  <el-row>
     <p class="head">线程</p>
 
     <el-row>

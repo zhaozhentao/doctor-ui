@@ -1,5 +1,5 @@
 <template>
-  <el-row class="main">
+  <el-row>
     <p class="head">内存</p>
 
     <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>

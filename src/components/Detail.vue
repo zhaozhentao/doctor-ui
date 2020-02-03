@@ -1,8 +1,8 @@
 <template>
-  <el-row>
-    <el-row>
-      <el-col :span="4">
-        <table class="table table-hover card">
+  <div class="row">
+    <div class="col-md-2" style="margin-bottom: 10px;">
+      <el-card :body-style="{padding: '0px'}">
+        <table class="table table-hover">
           <tbody>
           <tr>
             <div>
@@ -29,18 +29,15 @@
           </tr>
           </tbody>
         </table>
-      </el-col>
+      </el-card>
+    </div>
 
-      <el-col :span="19" :offset="1">
-        <div class="card">
-          <router-view/>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-row>
-    </el-row>
-  </el-row>
+    <div class="col-md-10">
+      <el-card>
+        <router-view/>
+      </el-card>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -60,18 +57,8 @@
 </script>
 
 <style scoped>
-  .card {
-    background-color: #fff;
-    border-radius: 3px;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .04);
-  }
-
   tr:first-child {
     margin-top: 10px;
-  }
-
-  tr:last-child {
-    margin-bottom: 10px;
   }
 
   tr > div {
