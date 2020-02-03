@@ -4,6 +4,7 @@ import Detail from "../components/Detail";
 import VM from "../components/VM";
 import Memory from "../components/Memory";
 import Thread from "../components/Thread";
+import HeapObjects from "../components/Objects";
 
 const routes = [
   {
@@ -18,6 +19,9 @@ const routes = [
     }, {
       path: 'thread',
       component: Thread
+    }, {
+      path: 'objects',
+      component: HeapObjects
     }]
   },
   {path: '/*', component: Home},

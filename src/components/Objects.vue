@@ -1,0 +1,61 @@
+<template>
+  <div class="content">
+    <p class="head">堆对象统计</p>
+
+    <el-row>
+      <el-col :span="6">
+        <el-input v-model="classFilter" placeholder="ClassName"/>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="24">
+        <el-table :data="afterFilterObjects" style="width: 100%">
+          <el-table-column prop="className" label="日期"/>
+          <el-table-column prop="count" sortable label="数量" width="120"/>
+          <el-table-column prop="bytes" sortable label="bytes" width="120"/>
+        </el-table>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
+<script>
+  let axios = require('axios');
+
+  export default {
+    name: 'HeapObjects',
+    data() {
+      return {
+        classFilter: '',
+        id: null,
+        afterFilterObjects: null,
+        objects: null
+      }
+    },
+    methods: {
+      async getObjects() {
+        let result = await axios.get(`/api/jvms/${this.id}/objects`)
+
+        this.objects = result.data
+        this.afterFilterObjects = this.objects.filter(item => item.className.match(this.classFilter))
+      }
+    },
+    watch: {
+      classFilter(value) {
+        this.afterFilterObjects = this.objects.filter(item => item.className.match(value))
+      }
+    },
+    created() {
+      this.id = this.$route.params.id
+
+      this.getObjects()
+    },
+  }
+</script>
+
+<style scoped>
+  .content {
+    padding: 12px;
+  }
+</style>

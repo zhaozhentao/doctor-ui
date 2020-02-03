@@ -20,6 +20,12 @@
             <router-link :to="`/jvm/${id}/thread`">线程</router-link>
           </div>
         </tr>
+
+        <tr>
+          <div>
+            <router-link :to="`/jvm/${id}/objects`">堆对象统计</router-link>
+          </div>
+        </tr>
         </tbody>
       </table>
     </div>
