@@ -1,56 +1,34 @@
 <template>
-  <div class="container-fluid">
+  <el-row class="main">
     <p class="head">线程</p>
 
-    <div class="row">
+    <el-row>
       <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
       <ve-line :data="form" :colors="colors" :series="series" v-if="!loading"/>
-    </div>
+    </el-row>
 
-    <div class="row" style="margin-bottom: 14px;">
-      <div class="col-md-6">
-        <button class="btn btn-default" v-on:click="getThreads">
-          <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>刷新
-        </button>
-      </div>
+    <el-row>
+      <el-col :span="12">
+        <el-button v-on:click="getThreads" icon="el-icon-refresh">刷新</el-button>
+      </el-col>
 
-      <div class="col-md-6">
-        <button class="btn btn-default" v-on:click="getDeadThreads">
-          <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>检测死锁
-        </button>
-      </div>
-    </div>
+      <el-col :span="12">
+        <el-button v-on:click="getDeadThreads" icon="el-icon-lock">检测死锁</el-button>
+      </el-col>
+    </el-row>
 
-    <div class="row">
-      <div class="col-md-6">
-        <table class="table table-hover table-bordered">
-          <thead>
-          <tr>
-            <th>线程名</th>
-            <th>状态</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="item" v-for="thread in threads" :key="thread.id" v-on:click="getThreadDetail(thread.id)">
-            <td>{{ thread.name }}</td>
-            <td>{{ thread.state }}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+    <el-row style="margin-top: 20px;">
+      <el-col :span="10" :offset="1">
+        <el-table :data="threads" style="width: 100%" @row-click="getThreadDetail">
+          <el-table-column prop="name" label="线程名"/>
+          <el-table-column prop="state" sortable label="状态" width="160"/>
+        </el-table>
+      </el-col>
 
-      <div class="col-md-6" style="overflow: scroll;">
-        <table class="table table-hover">
-          <tbody>
-          <tr>
-            <td>
-              <pre>{{ threadDetail }}</pre>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <el-col :span="11" :offset="1" style="margin-top: 60px;">
+        <pre>{{ threadDetail }}</pre>
+      </el-col>
+    </el-row>
 
     <el-dialog title="死锁" :visible.sync="dialogShow" width="80%">
       <div class="row">
@@ -63,7 +41,7 @@
         </div>
       </div>
     </el-dialog>
-  </div>
+  </el-row>
 </template>
 
 <script>
@@ -128,8 +106,9 @@
 
         this.threads = result.data
       },
-      async getThreadDetail(tid) {
-        let result = await axios.get(`/api/jvms/${this.id}/threads/${tid}`)
+      async getThreadDetail(row) {
+        console.log(row)
+        let result = await axios.get(`/api/jvms/${this.id}/threads/${row.id}`)
         this.threadDetail = result.data
       },
       async getDeadThreads() {

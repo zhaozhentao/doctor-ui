@@ -1,41 +1,46 @@
 <template>
-  <div class="row">
-    <div class="col-md-2">
-      <table class="table table-hover card">
-        <tbody>
-        <tr>
-          <div>
-            <router-link :to="`/jvm/${id}/vm`">VM概要</router-link>
-          </div>
-        </tr>
+  <el-row>
+    <el-row>
+      <el-col :span="4">
+        <table class="table table-hover card">
+          <tbody>
+          <tr>
+            <div>
+              <router-link :to="`/jvm/${id}/vm`">VM概要</router-link>
+            </div>
+          </tr>
 
-        <tr>
-          <div>
-            <router-link :to="`/jvm/${id}/memory`">内存</router-link>
-          </div>
-        </tr>
+          <tr>
+            <div>
+              <router-link :to="`/jvm/${id}/memory`">内存</router-link>
+            </div>
+          </tr>
 
-        <tr>
-          <div>
-            <router-link :to="`/jvm/${id}/thread`">线程</router-link>
-          </div>
-        </tr>
+          <tr>
+            <div>
+              <router-link :to="`/jvm/${id}/thread`">线程</router-link>
+            </div>
+          </tr>
 
-        <tr>
-          <div>
-            <router-link :to="`/jvm/${id}/objects`">堆对象统计</router-link>
-          </div>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+          <tr>
+            <div>
+              <router-link :to="`/jvm/${id}/objects`">堆对象统计</router-link>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+      </el-col>
 
-    <div class="col-md-10">
-      <div class="card">
-        <router-view></router-view>
-      </div>
-    </div>
-  </div>
+      <el-col :span="19" :offset="1">
+        <div class="card">
+          <router-view/>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-row>
+    </el-row>
+  </el-row>
 </template>
 
 <script>
@@ -59,7 +64,6 @@
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, .04);
-    padding: 15px 0;
   }
 
   tr:first-child {

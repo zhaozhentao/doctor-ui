@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <el-row class="main">
     <p class="head">VM概要</p>
     <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
 
@@ -195,7 +195,7 @@
         </el-col>
       </el-row>
     </div>
-  </div>
+  </el-row>
 </template>
 
 <script>
@@ -234,10 +234,6 @@
 </script>
 
 <style scoped>
-  .content {
-    padding: 0 20px;
-  }
-
   .item-content {
     word-break: break-all;
   }

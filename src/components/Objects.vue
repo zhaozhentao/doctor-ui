@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <el-row class="main">
     <p class="head">堆对象统计</p>
 
     <el-row type="flex" align="middle">
@@ -25,7 +25,7 @@
         </el-table>
       </el-col>
     </el-row>
-  </div>
+  </el-row>
 </template>
 
 <script>
@@ -68,7 +68,5 @@
 </script>
 
 <style scoped>
-  .content {
-    padding: 12px;
-  }
+
 </style>

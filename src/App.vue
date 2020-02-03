@@ -10,9 +10,7 @@
       </div>
     </div>
 
-    <div class="container content">
-      <router-view></router-view>
-    </div>
+    <router-view class="main"/>
   </div>
 </template>
 
@@ -26,8 +24,21 @@
   $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
   @import "~bootstrap-sass/assets/stylesheets/_bootstrap";
 
+  .toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .brand {
+
+  }
+
   body {
     background: #eee;
+  }
+
+  .main {
+    padding: 16px;
   }
 
   .navbar {

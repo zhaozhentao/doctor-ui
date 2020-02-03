@@ -1,15 +1,13 @@
 <template>
-  <div class="container-fluid">
+  <el-row class="main">
     <p class="head">内存</p>
 
     <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
 
     <div v-if="!loading">
-      <div class="row">
-        <div class="gc_container">
-          <button class="btn btn-default" v-on:click="gc">GC</button>
-        </div>
-      </div>
+      <el-row type="flex" justify="end">
+        <el-button v-on:click="gc">GC</el-button>
+      </el-row>
 
       <div class="row">
         <div class="col-md-6" v-for="form in forms" :key="form.columns[1]">
@@ -17,7 +15,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </el-row>
 </template>
 
 <script>
@@ -111,9 +109,4 @@
 </script>
 
 <style scoped>
-  .gc_container {
-    text-align: right;
-    padding-right: 20px;
-    margin-bottom: 10px;
-  }
 </style>
