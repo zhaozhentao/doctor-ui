@@ -2,9 +2,17 @@
   <div class="content">
     <p class="head">堆对象统计</p>
 
-    <el-row>
+    <el-row type="flex" align="middle">
       <el-col :span="6">
         <el-input v-model="classFilter" placeholder="ClassName"/>
+      </el-col>
+
+      <el-col :offset="10" :span="4">
+        <span>总对象数:{{ totalCount }}</span>
+      </el-col>
+
+      <el-col :span="4">
+        <span class="">总字节数:{{ totalBytes }}</span>
       </el-col>
     </el-row>
 
@@ -29,6 +37,8 @@
       return {
         classFilter: '',
         id: null,
+        totalCount: null,
+        totalBytes: null,
         afterFilterObjects: null,
         objects: null
       }
@@ -37,7 +47,10 @@
       async getObjects() {
         let result = await axios.get(`/api/jvms/${this.id}/objects`)
 
-        this.objects = result.data
+        this.totalCount = result.data.totalCount
+        this.totalBytes = result.data.totalBytes
+        this.objects = result.data.beans
+
         this.afterFilterObjects = this.objects.filter(item => item.className.match(this.classFilter))
       }
     },
