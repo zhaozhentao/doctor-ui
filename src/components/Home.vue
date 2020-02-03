@@ -5,7 +5,7 @@
         <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
 
         <el-table :data="jvms" style="width: 100%" v-if="!loading">
-          <el-table-column prop="vmid" label="PID" width="100px"/>
+          <el-table-column align="center" prop="vmid" label="PID" width="100px"/>
 
           <el-table-column prop="displayName" label="JVM" :show-overflow-tooltip="true">
             <template slot-scope="scope">
@@ -13,7 +13,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column prop="isConnected" label="操作" width="120px">
+          <el-table-column align="center" label="操作" width="120px">
             <template slot-scope="scope">
               <el-button type="text" v-if="scope.row.connected" v-on:click="disConnect(scope.row.vmid)">断开</el-button>
             </template>
