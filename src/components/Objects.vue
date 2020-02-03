@@ -19,7 +19,7 @@
     <el-row>
       <el-col :span="24">
         <el-table :data="afterFilterObjects" style="width: 100%">
-          <el-table-column prop="className" label="日期"/>
+          <el-table-column prop="className" label="ClassName"/>
           <el-table-column prop="count" sortable label="数量" width="120"/>
           <el-table-column prop="bytes" sortable label="bytes" width="120"/>
         </el-table>

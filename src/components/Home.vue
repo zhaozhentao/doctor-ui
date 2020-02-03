@@ -12,6 +12,12 @@
               <router-link :to="`/jvm/${scope.row.vmid}/vm`">{{ scope.row.displayName }}</router-link>
             </template>
           </el-table-column>
+
+          <el-table-column prop="isConnected" label="操作" width="120px">
+            <template slot-scope="scope">
+              <el-button type="text" v-if="scope.row.connected" v-on:click="disConnect(scope.row.vmid)">断开</el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </el-card>
     </el-col>
@@ -37,6 +43,11 @@
 
         this.jvms = result.data
         this.loading = false
+      },
+      async disConnect(vmid) {
+        await axios.delete(`/api/jvms/${vmid}`)
+
+        this.getJVM()
       },
     },
     created() {
