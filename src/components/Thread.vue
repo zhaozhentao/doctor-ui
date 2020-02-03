@@ -4,7 +4,15 @@
 
     <el-row>
       <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
-      <ve-line :data="form" :colors="colors" :series="series" v-if="!loading"/>
+      <div class="row">
+        <div class="col-md-6">
+          <ve-line :data="cpu" :colors="colors" :series="cpuSeries" v-if="!loading"/>
+        </div>
+
+        <div class="col-md-6">
+          <ve-line :data="form" :colors="colors" :series="series" v-if="!loading"/>
+        </div>
+      </div>
     </el-row>
 
     <el-row>
@@ -70,6 +78,14 @@
         deadLockThreadDetail: null,
         colors: ['#304ffe', '#b71c1c'],
         form: {columns: ['time', '活动线程', '峰值线程'], rows: []},
+        cpu: {columns: ['time', 'CPU'], rows: []},
+        cpuSeries: [{
+          symbol: "none",
+          type: "line",
+          smooth: false,
+          name: 'CPU',
+          data: []
+        }],
         series: [{
           symbol: "none",
           type: "line",
@@ -95,11 +111,19 @@
           this.form.rows.shift()
           this.series[0].data.shift()
           this.series[1].data.shift()
+
+          this.cpu.rows.shift()
+          this.cpuSeries[0].data.shift()
         }
 
-        this.form.rows.push({time: dayjs().format('mm:ss')})
+        let time = dayjs().format('mm:ss')
+
+        this.form.rows.push({time})
         this.series[0].data.push(result.data.activeThreadCount)
         this.series[1].data.push(result.data.peakThreadCount)
+
+        this.cpu.rows.push({time})
+        this.cpuSeries[0].data.push(result.data.cpuUsage)
       },
       async getThreads() {
         let result = await axios.get(`/api/jvms/${this.id}/threads`)
@@ -163,7 +187,5 @@
 </script>
 
 <style scoped>
-  .item:hover {
-    cursor: pointer;
-  }
+
 </style>

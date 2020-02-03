@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%; overflow: hidden;">
     <div class="navbar navbar-default topnav">
       <div class="container">
         <div class="navbar-header">
