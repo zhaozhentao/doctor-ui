@@ -93,6 +93,8 @@
       },
       async gc() {
         await axios.post(`/api/jvms/${this.id}/gc`)
+
+        this.$message({message: '操作成功', type: 'success'});
       }
     },
     created() {

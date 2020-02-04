@@ -17,7 +17,7 @@
 
     <el-row>
       <el-col :span="12">
-        <el-button v-on:click="getThreads" icon="el-icon-refresh">刷新</el-button>
+        <el-button v-on:click="refreshThreads" icon="el-icon-refresh">刷新</el-button>
       </el-col>
 
       <el-col :span="12">
@@ -124,6 +124,10 @@
 
         this.cpu.rows.push({time})
         this.cpuSeries[0].data.push(result.data.cpuUsage)
+      },
+      async refreshThreads() {
+        await this.getThreads()
+        this.$message({message: '操作成功', type: 'success'});
       },
       async getThreads() {
         let result = await axios.get(`/api/jvms/${this.id}/threads`)
