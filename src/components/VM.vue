@@ -23,7 +23,7 @@
         </el-col>
         <el-col :span="20">
           <div class="grid-content bg-purple-light item-content">
-            {{ (data.upTime / 1000).toFixed(2) }}秒
+            {{ data.upTime | time }}
           </div>
         </el-col>
       </el-row>
@@ -36,7 +36,7 @@
         </el-col>
         <el-col :span="20">
           <div class="grid-content bg-purple-light item-content">
-            {{ (data.progressCpuTime / 1000).toFixed(3) }} 秒
+            {{ data.progressCpuTime | time }}
           </div>
         </el-col>
       </el-row>
@@ -88,7 +88,7 @@
         </el-col>
         <el-col :span="20">
           <div class="grid-content bg-purple-light item-content" v-for="gc in data.garbageCollectInfos" :key="gc.name">
-            {{ gc.name }}收集:{{ gc.count }}, 耗时:{{ (gc.time / 1000).toFixed(3) }} 秒
+            {{ gc.name }}收集:{{ gc.count }}, 耗时:{{ gc.time | time }}
           </div>
         </el-col>
       </el-row>
@@ -199,10 +199,42 @@
 </template>
 
 <script>
+  let moment = require('moment');
   let axios = require('axios');
 
   export default {
     name: 'VM',
+    filters: {
+      time(mill) {
+        let time = moment.duration(mill)
+
+        let timeStr = '';
+        if (time._data.years !== 0) {
+          timeStr += time._data.years + '年'
+        }
+        if (time._data.months !== 0) {
+          timeStr += time._data.months + '月'
+        }
+        if (time._data.days !== 0) {
+          timeStr += time._data.days + '日'
+        }
+        if (time._data.hours !== 0) {
+          timeStr += time._data.hours + '小时'
+        }
+        if (time._data.minutes !== 0) {
+          timeStr += time._data.minutes + '分钟'
+        }
+        if (time._data.seconds !== 0) {
+          timeStr += time._data.seconds + '秒'
+        }
+
+        if (time._data.milliseconds !== 0) {
+          timeStr += time._data.milliseconds + '毫秒'
+        }
+
+        return timeStr
+      }
+    },
     data() {
       return {
         loading: true,
