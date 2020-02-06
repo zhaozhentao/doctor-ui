@@ -6,7 +6,7 @@
     <div v-if="!loading">
       <el-row>
         <el-col :span="4">
-          <div class="grid-content bg-purple">主类</div>
+          <div class="grid-content bg-purple">名称</div>
         </el-col>
         <el-col :span="20">
           <div class="grid-content bg-purple-light item-content">
