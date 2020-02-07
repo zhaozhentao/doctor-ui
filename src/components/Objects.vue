@@ -1,30 +1,34 @@
 <template>
   <el-row>
-    <p class="head">堆对象统计</p>
+    <p class="head">堆对象统计(耗时操作)</p>
 
-    <el-row type="flex" align="middle">
-      <el-col :span="6">
-        <el-input v-model="classFilter" placeholder="ClassName"/>
-      </el-col>
+    <van-skeleton class="van-skeleton" title :row="8" v-if="loading"/>
 
-      <el-col :offset="10" :span="4">
-        <span>总对象数:{{ totalCount }}</span>
-      </el-col>
+    <div v-if="!loading">
+      <el-row type="flex" align="middle">
+        <el-col :span="6">
+          <el-input v-model="classFilter" placeholder="ClassName"/>
+        </el-col>
 
-      <el-col :span="4">
-        <span class="">总字节数:{{ totalBytes }}</span>
-      </el-col>
-    </el-row>
+        <el-col :offset="10" :span="4">
+          <span>总对象数:{{ totalCount }}</span>
+        </el-col>
 
-    <el-row>
-      <el-col :span="24">
-        <el-table :data="afterFilterObjects" style="width: 100%">
-          <el-table-column prop="className" label="ClassName"/>
-          <el-table-column prop="count" sortable label="数量" width="120"/>
-          <el-table-column prop="bytes" sortable label="bytes" width="120"/>
-        </el-table>
-      </el-col>
-    </el-row>
+        <el-col :span="4">
+          <span class="">总字节数:{{ totalBytes }}</span>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="24">
+          <el-table :data="afterFilterObjects" style="width: 100%">
+            <el-table-column prop="className" label="ClassName"/>
+            <el-table-column prop="count" sortable label="数量" width="120"/>
+            <el-table-column prop="bytes" sortable label="bytes" width="120"/>
+          </el-table>
+        </el-col>
+      </el-row>
+    </div>
   </el-row>
 </template>
 
@@ -35,6 +39,7 @@
     name: 'HeapObjects',
     data() {
       return {
+        loading: true,
         classFilter: '',
         id: null,
         totalCount: null,
@@ -52,6 +57,7 @@
         this.objects = result.data.beans
 
         this.afterFilterObjects = this.objects.filter(item => item.className.match(this.classFilter))
+        this.loading = false
       }
     },
     watch: {
