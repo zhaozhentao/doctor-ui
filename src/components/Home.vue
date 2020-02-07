@@ -48,7 +48,7 @@
       </el-card>
     </div>
 
-    <el-dialog title="远程连接说明" width="80%" :visible.sync="explain">
+    <el-dialog title="远程连接说明" width="95%" :visible.sync="explain">
       <div class="explain_title">
         不设置验证方式:
       </div>
