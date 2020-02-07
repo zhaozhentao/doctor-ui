@@ -4,7 +4,7 @@
       <div class="container">
         <div class="navbar-header">
           <router-link :to="'/'" class="navbar-brand">
-            Doctor
+            Java在线性能监控
           </router-link>
         </div>
       </div>
