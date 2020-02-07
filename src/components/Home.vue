@@ -28,6 +28,7 @@
             <el-tab-pane label="远程连接" name="second">
               <el-form :model="form">
                 <el-form-item label="Host">
+                  <el-button @click="explain = true" type="text">说明 <i class="el-icon-info"></i></el-button>
                   <el-input v-model="form.host" placeholder="ip:port"/>
                 </el-form-item>
                 <el-form-item label="用户名">
@@ -46,6 +47,58 @@
         </div>
       </el-card>
     </div>
+
+    <el-dialog title="远程连接说明" width="80%" :visible.sync="explain">
+      <div class="explain_title">
+        不设置验证方式:
+      </div>
+
+      <pre>
+添加启动参数
+
+-Djava.rmi.server.hostname=localhost
+-Dcom.sun.management.jmxremote
+-Dcom.sun.management.jmxremote.port=端口(远程连接时的端口)
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.ssl=false
+
+完整例子:
+java -Djava.rmi.server.hostname=localhost \
+  -Dcom.sun.management.jmxremote \
+  -Dcom.sun.management.jmxremote.port=端口 \
+  -Dcom.sun.management.jmxremote.authenticate=false \
+  -Dcom.sun.management.jmxremote.ssl=false -jar xxx.jar
+      </pre>
+
+      <div class="explain_title" style="margin-top: 20px;">
+        带验证方式:
+      </div>
+
+      <pre>
+1 编辑 /usr/java/jdk1.8.0_60/jre/lib/management/jmxremote.password(jdk目录位置按实际情况)，将最后的注释去掉，并设置远程连接时的密码
+#monitorRole password
+#controlRole password
+
+2 编辑 /usr/java/jdk1.8.0_60/jre/lib/management/jmxremote.access(jdk目录位置按实际情况)，将文件最后的账号注释去掉(账号与上面的对应)
+
+3 添加启动参数启动
+-Djava.rmi.server.hostname=localhost
+-Dcom.sun.management.jmxremote
+-Dcom.sun.management.jmxremote.port=端口(远程连接时的端口)
+-Dcom.sun.management.jmxremote.authenticate=true
+-Dcom.sun.management.jmxremote.ssl=false
+      </pre>
+
+      <div class="explain_title" style="margin-top: 20px;">
+        测试远程连接
+      </div>
+
+      <pre>
+Host: 111.229.177.38:9099
+用户名: controlRole
+密码: R&D
+      </pre>
+    </el-dialog>
   </div>
 </template>
 
@@ -56,6 +109,7 @@
     name: 'Home',
     data() {
       return {
+        explain: false,
         form: {
           host: null,
           userName: null,
@@ -68,7 +122,6 @@
     },
     methods: {
       async connect() {
-        this.showRemote = false
         let result = await axios.post('/api/jvms', this.form)
         this.$router.replace(`/jvm/${result.data}/vm`)
       },
@@ -93,5 +146,11 @@
 </script>
 <!---->
 <style scoped>
-
+  .explain_title {
+    margin-top: -34px;
+    color: #303133;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 32px;
+  }
 </style>
