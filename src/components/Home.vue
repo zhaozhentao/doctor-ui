@@ -94,7 +94,7 @@ java -Djava.rmi.server.hostname=localhost \
       </div>
 
       <pre>
-Host: 111.229.177.38:9099
+Host: jvmtools.cn:9099
 用户名: controlRole
 密码: R&D
       </pre>
