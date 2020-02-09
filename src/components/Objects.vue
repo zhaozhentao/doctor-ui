@@ -22,8 +22,16 @@
       <el-row>
         <el-col :span="24">
           <el-table :data="afterFilterObjects" style="width: 100%">
-            <el-table-column prop="className" label="ClassName"/>
+            <el-table-column prop="className" label="ClassName">
+              <template slot-scope="scope">
+                <router-link :to="`/jvm/${id}/class/${scope.row.idString}`">
+                  {{ scope.row.className }}
+                </router-link>
+              </template>
+            </el-table-column>
+
             <el-table-column prop="count" sortable label="数量" width="120"/>
+
             <el-table-column prop="bytes" sortable label="bytes" width="120"/>
           </el-table>
         </el-col>
@@ -50,7 +58,7 @@
     },
     methods: {
       async getObjects() {
-        let result = await axios.get(`/api/jvms/${this.id}/objects`)
+        let result = await axios.get(`/api/jvms/${this.id}/class`)
 
         this.totalCount = result.data.totalCount
         this.totalBytes = result.data.totalBytes

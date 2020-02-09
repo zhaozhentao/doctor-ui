@@ -15,7 +15,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -28,7 +28,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -41,7 +41,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -54,7 +54,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -67,7 +67,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -80,7 +80,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -93,7 +93,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -106,7 +106,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -119,7 +119,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -143,7 +143,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -156,7 +156,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -169,7 +169,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">
@@ -182,7 +182,7 @@
         </el-col>
       </el-row>
 
-      <el-divider></el-divider>
+      <el-divider/>
 
       <el-row>
         <el-col :span="4">

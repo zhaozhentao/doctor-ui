@@ -24,7 +24,7 @@
 
           <tr>
             <div>
-              <router-link :to="`/jvm/${id}/objects`">堆对象统计</router-link>
+              <router-link :to="`/jvm/${id}/class`">堆对象统计</router-link>
             </div>
           </tr>
           </tbody>
