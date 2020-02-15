@@ -34,7 +34,7 @@
 
     <div class="col-md-10">
       <el-card>
-        <router-view/>
+        <router-view :key="$route.fullPath"/>
       </el-card>
     </div>
   </div>
