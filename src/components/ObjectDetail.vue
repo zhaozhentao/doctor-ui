@@ -2,7 +2,7 @@
   <el-row>
     <p class="head">Object Detail {{ this.objectId }}</p>
 
-    <el-row v-if="data.isValue">
+    <el-row v-if="data.type == 'Value'">
       <el-col :span="4">
         <div class="grid-content bg-purple">Value</div>
       </el-col>
@@ -14,7 +14,7 @@
       </el-col>
     </el-row>
 
-    <el-row v-if="!data.isValue">
+    <el-row v-if="data.type == 'JavaObject'">
       <el-row>
         <el-col :span="4">
           <div class="grid-content bg-purple">实例</div>
@@ -84,6 +84,46 @@
         </el-row>
       </el-col>
     </el-row>
+
+    <el-row v-if="data.type == 'JavaClass'">
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content bg-purple">ClassName</div>
+        </el-col>
+
+        <el-col :span="4">
+          <div class="grid-content bg-purple">{{ data.className }}</div>
+        </el-col>
+      </el-row>
+
+      <el-divider/>
+
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content bg-purple">SuperClass</div>
+        </el-col>
+
+        <el-col :span="4">
+          <div class="grid-content bg-purple">
+            <router-link :to="`/jvm/${id}/class/${data.Superclass.classAddress}`">{{ data.Superclass.class }}</router-link>
+          </div>
+        </el-col>
+      </el-row>
+
+      <el-divider/>
+
+      <el-row>
+        <el-col :span="4">
+          <div class="grid-content bg-purple">ClassLoader</div>
+        </el-col>
+
+        <el-col :span="20">
+          <div class="grid-content bg-purple">
+            <router-link :to="`/jvm/${id}/objects/${data.ClassLoader.objectAddress}`">{{ data.ClassLoader.valueString }}({{ data.ClassLoader.size }} bytes)</router-link>
+          </div>
+        </el-col>
+      </el-row>
+    </el-row>
   </el-row>
 </template>
 
@@ -96,7 +136,7 @@
       return {
         id: null,
         objectId: null,
-        data: null
+        data: {}
       }
     },
     methods: {
